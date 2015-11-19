@@ -17,24 +17,23 @@ public class TextFormats {
      *
      * "2.00 + 2.00" => "2.oo + 2.oo"
      */
-    public static function formatNumbers(textField:TextField, scale: Number = 0.8):void {
+    public static function formatNumbers(textField:TextField, scale:Number = 0.8):void {
         const smallTextFormat:TextFormat = clone(textField.defaultTextFormat);
         smallTextFormat.size = Number(smallTextFormat.size) * scale;
 
         const text:String = textField.text;
-        var index:int = -1;
-        while (true) {
-            index = text.indexOf(".", index + 1);
 
-            if (index == -1) break;
-
-            if (index + 2 < text.length &&
-                    Strings.isNumber(text.charAt(index + 1)) &&
-                    Strings.isNumber(text.charAt(index + 2))) {
-                textField.setTextFormat(smallTextFormat, index, index + 3);
-            } else {
-                index++;
+        const indices:Vector.<int> = new <int>[];
+        for (var i:int = 0; i < text.length - 2; i++) {
+            if (text.charAt(i) == "." &&
+                    Strings.isNumber(text.charAt(i + 1)) &&
+                    Strings.isNumber(text.charAt(i + 2))) {
+                indices.push(i);
             }
+        }
+
+        for each (var index:int in indices) {
+            textField.setTextFormat(smallTextFormat, index, index + 3);
         }
     }
 

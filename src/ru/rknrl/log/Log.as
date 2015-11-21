@@ -6,8 +6,9 @@
 //     |:\/__/   |:|  |     |:/  /   |:\/__/   \:\__\
 //      \|__|     \|__|     \/__/     \|__|     \/__/
 
-package ru.rknrl {
+package ru.rknrl.log {
 import flash.events.Event;
+import flash.events.EventDispatcher;
 import flash.events.IOErrorEvent;
 import flash.events.SecurityErrorEvent;
 import flash.net.URLLoader;
@@ -17,10 +18,11 @@ import flash.system.Capabilities;
 import flash.system.System;
 import flash.utils.getTimer;
 
-public class Log {
+public class Log extends EventDispatcher {
     public static const log:Log = new Log();
     public static var isDebug:Boolean = false;
     public static var url:String = null;
+    public static var dispatch:Boolean;
 
     public static function info(text:String):void {
         log.info(text);
@@ -36,6 +38,14 @@ public class Log {
 
     public static function debug(text:String):void {
         log.debug(text);
+    }
+
+    public static function addEventListener(type:String, listener:Function):void {
+        log.addEventListener(type, listener);
+    }
+
+    public static function removeEventListener(type:String, listener:Function):void {
+        log.removeEventListener(type, listener);
     }
 
     //
@@ -77,6 +87,10 @@ public class Log {
         list.push(text);
         trace(text);
         trace("."); // just for divide
+
+        if (dispatch) {
+            dispatchEvent(new LogEvent(text));
+        }
     }
 
     public function info(text:String):void {

@@ -6,7 +6,7 @@
 //     |:\/__/   |:|  |     |:/  /   |:\/__/   \:\__\
 //      \|__|     \|__|     \/__/     \|__|     \/__/
 
-package ru.rknrl {
+package ru.rknrl.common {
 import flash.utils.Dictionary;
 import flash.utils.getQualifiedClassName;
 

@@ -123,14 +123,14 @@ public class PrintTest {
     public function testObject():void {
         assertEquals(
                 "{\n" +
-                '  c="Tolya"\n' +
-                '  b="Yanot"\n' +
-                '  a=24\n' +
+                '  10="Tolya"\n' +
+                '  20="Yanot"\n' +
+                '  30=24\n' +
                 "}",
                 print({
-                    a: 24,
-                    b: "Yanot",
-                    c: "Tolya"
+                    10: "Tolya",
+                    20: "Yanot",
+                    30: 24
                 }));
     }
 
@@ -144,15 +144,15 @@ public class PrintTest {
     [Test]
     public function testDictionary():void {
         const d:Dictionary = new Dictionary();
-        d["a"] = 24;
-        d["b"] = "Yanot";
-        d["c"] = "Tolya";
+        d[10] = "Tolya";
+        d[20] = "Yanot";
+        d[30] = 24;
 
         assertEquals(
                 "{\n" +
-                '  c="Tolya"\n' +
-                '  b="Yanot"\n' +
-                '  a=24\n' +
+                '  10="Tolya"\n' +
+                '  20="Yanot"\n' +
+                '  30=24\n' +
                 "}",
                 print(d));
     }
@@ -168,24 +168,24 @@ public class PrintTest {
     public function testNested():void {
         assertEquals(
                 "{\n" +
-                "  error={}\n" +
-                "  result={\n" +
+                "  0={}\n" +
+                "  1={\n" +
                 "    userInfo={\n" +
-                '      c="Tolya"\n' +
-                '      b="Yanot"\n' +
-                '      a=24\n' +
+                '      10="Tolya"\n' +
+                '      20="Yanot"\n' +
+                '      30=24\n' +
                 "    }\n" +
                 "  }\n" +
                 "}",
                 print({
-                    result: {
+                    0: {},
+                    1: {
                         userInfo: {
-                            a: 24,
-                            b: "Yanot",
-                            c: "Tolya"
+                            10: "Tolya",
+                            20: "Yanot",
+                            30: 24
                         }
-                    },
-                    error: {}
+                    }
                 })
         )
     }
@@ -193,17 +193,17 @@ public class PrintTest {
     [Test]
     public function testDeadLock():void {
         const hash:Object = {
-            a: null,
-            b: "rknrl"
+            2: "rknrl",
+            3: null
         };
 
-        hash.hash = hash;
+        hash[1] = hash;
 
         assertEquals(
                 "{\n" +
-                "  hash=@link\n" +
-                '  b="rknrl"\n' +
-                "  a=null\n" +
+                "  1=@link\n" +
+                '  2="rknrl"\n' +
+                "  3=null\n" +
                 "}",
                 print(hash));
     }

@@ -36,5 +36,19 @@ public class Strings {
     public static function isNumber(char:String):Boolean {
         return NUMBERS.indexOf(char) > -1;
     }
+
+
+    public static function getCharIndices(text:String, char:String):Vector.<int> {
+        const indices:Vector.<int> = new <int>[];
+        if (text == null) return indices;
+
+        var i:int = -1;
+
+        while ((i = text.indexOf(char, i + 1)) > -1) {
+            indices.push(i);
+        }
+
+        return indices;
+    }
 }
 }

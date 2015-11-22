@@ -42,10 +42,8 @@ public class Strings {
         const indices:Vector.<int> = new <int>[];
         if (text == null) return indices;
 
-        var i:int = -1;
-
-        while ((i = text.indexOf(char, i + 1)) > -1) {
-            indices.push(i);
+        for (var i:int = 0; i < text.length; i++) {
+            if (text.charAt(i) == char) indices.push(i);
         }
 
         return indices;

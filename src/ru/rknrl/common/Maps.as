@@ -12,18 +12,42 @@ import flash.utils.Dictionary;
 public class Maps {
     public static function copyObject(hash:Object):Object {
         const result:Object = {};
-        for (var key:String in hash) {
-            result[key] = hash[key];
-        }
+        copyImpl(hash, result);
         return result;
     }
 
     public static function copyDictionary(hash:Dictionary):Dictionary {
         const result:Dictionary = new Dictionary();
+        copyImpl(hash, result);
+        return result;
+    }
+
+    private static function copyImpl(hash:Object, result:Object):void {
         for (var key:String in hash) {
             result[key] = hash[key];
         }
+    }
+
+    public static function mergeObject(a:Object, b:Object):Object {
+        const result:Object = {};
+        mergeImpl(a, b, result);
         return result;
+    }
+
+    public static function mergeDictinary(a:Dictionary, b:Dictionary):Dictionary {
+        const result:Dictionary = new Dictionary();
+        mergeImpl(a, b, result);
+        return result;
+    }
+
+    private static function mergeImpl(a:Object, b:Object, result:Object):void {
+        for (var key:* in a) {
+            result[key] = a[key];
+        }
+        for (key in b) {
+            if (result[key] != undefined) throw new Error("Maps.merge: duplicate key " + key);
+            result[key] = b[key];
+        }
     }
 
     public static function firstKey(hash:Object):String {

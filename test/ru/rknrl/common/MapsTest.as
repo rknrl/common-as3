@@ -151,7 +151,7 @@ public class MapsTest {
 
     // copy object
 
-    [Test("copyObject")]
+    [Test]
     public function copyObject():void {
         const obj:Object = {a: 1, b: 2, c: 3};
         const clone:Object = Maps.copyObject(obj);
@@ -163,7 +163,7 @@ public class MapsTest {
 
     // copy dictionary
 
-    [Test("copyDictionary")]
+    [Test]
     public function copyDictionary():void {
         const dict:Dictionary = new Dictionary();
         dict["a"] = 1;
@@ -176,5 +176,77 @@ public class MapsTest {
         assertEquals(2, clone["b"]);
         assertEquals(3, clone["c"]);
     }
+
+    // merge object
+
+    [Test]
+    public function mergeObject():void {
+        const a:Object = {a: 1, b: 2, c: 3};
+        const b:Object = {d: 10, e: 20, f: 30};
+
+        const merge:Object = Maps.mergeObject(a, b);
+        assertEquals(6, Maps.size(merge));
+        assertEquals(1, merge["a"]);
+        assertEquals(2, merge["b"]);
+        assertEquals(3, merge["c"]);
+        assertEquals(10, merge["d"]);
+        assertEquals(20, merge["e"]);
+        assertEquals(30, merge["f"]);
+    }
+
+    [Test(expects="Error")]
+    public function mergeObjectConflict():void {
+        const a:Object = {a: 1, b: 2, c: 3};
+        const b:Object = {a: 10, e: 20, f: 30};
+
+        Maps.mergeObject(a, b);
+    }
+
+    // merge dictionary
+
+    [Test]
+    public function mergeDictionary():void {
+        const key1:TestObject = new TestObject(); // Проверяем, что ключи не кастяца к стрингу
+        const key2:TestObject = new TestObject();
+
+        const a:Dictionary = new Dictionary();
+        a[key1] = 1;
+        a["b"] = 2;
+        a["c"] = 3;
+        const b:Dictionary = new Dictionary();
+        b[key2] = 10;
+        b["e"] = 20;
+        b["f"] = 30;
+
+        const merge:Dictionary = Maps.mergeDictinary(a, b);
+        assertEquals(6, Maps.size(merge));
+        assertEquals(1, merge[key1]);
+        assertEquals(2, merge["b"]);
+        assertEquals(3, merge["c"]);
+        assertEquals(10, merge[key2]);
+        assertEquals(20, merge["e"]);
+        assertEquals(30, merge["f"]);
+    }
+
+    [Test(expects="Error")]
+    public function mergeDictionaryConflict():void {
+        const key:Object = {};
+        const a:Dictionary = new Dictionary();
+        a[key] = 1;
+        a["b"] = 2;
+        a["c"] = 3;
+        const b:Dictionary = new Dictionary();
+        b[key] = 10;
+        b["e"] = 20;
+        b["f"] = 30;
+
+        Maps.mergeDictinary(a, b);
+    }
 }
+}
+
+class TestObject {
+    public function toString():String {
+        return "toString";
+    }
 }

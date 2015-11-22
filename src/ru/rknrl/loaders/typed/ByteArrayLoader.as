@@ -12,9 +12,9 @@ import flash.utils.ByteArray;
 
 import ru.rknrl.loaders.base.URLLoaderBase;
 
-[Event(name="securityError", type="flash.events.SecurityErrorEvent")]
-[Event(name="ioError", type="flash.events.IOErrorEvent")]
 [Event(name="complete", type="flash.events.Event")]
+[Event(name="ioError", type="flash.events.IOErrorEvent")]
+[Event(name="securityError", type="flash.events.SecurityErrorEvent")]
 public class ByteArrayLoader extends URLLoaderBase {
     public function ByteArrayLoader(url:String) {
         super(url, URLLoaderDataFormat.BINARY);

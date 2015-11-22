@@ -16,9 +16,9 @@ import flash.utils.Dictionary;
 import ru.rknrl.common.Maps;
 import ru.rknrl.loaders.base.ILoader;
 
-[Event(name="securityError", type="flash.events.SecurityErrorEvent")]
-[Event(name="ioError", type="flash.events.IOErrorEvent")]
 [Event(name="complete", type="flash.events.Event")]
+[Event(name="ioError", type="flash.events.IOErrorEvent")]
+[Event(name="securityError", type="flash.events.SecurityErrorEvent")]
 public class SequenceLoader extends EventDispatcher implements ILoader {
     private var loaders:Vector.<ILoader>;
     private var loading:Boolean;

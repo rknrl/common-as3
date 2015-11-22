@@ -17,9 +17,9 @@ import flash.utils.Dictionary;
 
 import ru.rknrl.common.OverrideMe;
 
-[Event(name="securityError", type="flash.events.SecurityErrorEvent")]
-[Event(name="ioError", type="flash.events.IOErrorEvent")]
 [Event(name="complete", type="flash.events.Event")]
+[Event(name="ioError", type="flash.events.IOErrorEvent")]
+[Event(name="securityError", type="flash.events.SecurityErrorEvent")]
 public class URLLoaderBase extends EventDispatcher implements ILoader {
     private var _url:String;
 

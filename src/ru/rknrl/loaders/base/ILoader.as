@@ -10,9 +10,9 @@ package ru.rknrl.loaders.base {
 import flash.events.IEventDispatcher;
 import flash.utils.Dictionary;
 
-[Event(name="securityError", type="flash.events.SecurityErrorEvent")]
-[Event(name="ioError", type="flash.events.IOErrorEvent")]
 [Event(name="complete", type="flash.events.Event")]
+[Event(name="ioError", type="flash.events.IOErrorEvent")]
+[Event(name="securityError", type="flash.events.SecurityErrorEvent")]
 public interface ILoader extends IEventDispatcher {
     function load():void;
 

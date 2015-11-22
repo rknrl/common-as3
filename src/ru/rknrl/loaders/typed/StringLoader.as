@@ -11,9 +11,9 @@ import flash.net.URLLoaderDataFormat;
 
 import ru.rknrl.loaders.base.URLLoaderBase;
 
-[Event(name="securityError", type="flash.events.SecurityErrorEvent")]
-[Event(name="ioError", type="flash.events.IOErrorEvent")]
 [Event(name="complete", type="flash.events.Event")]
+[Event(name="ioError", type="flash.events.IOErrorEvent")]
+[Event(name="securityError", type="flash.events.SecurityErrorEvent")]
 public class StringLoader extends URLLoaderBase {
     public function StringLoader(url:String) {
         super(url, URLLoaderDataFormat.TEXT);

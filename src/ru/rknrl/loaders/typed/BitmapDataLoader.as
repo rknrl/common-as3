@@ -15,9 +15,9 @@ import flash.events.SecurityErrorEvent;
 import ru.rknrl.loaders.base.LoaderBase;
 import ru.rknrl.log.Log;
 
-[Event(name="securityError", type="flash.events.SecurityErrorEvent")]
-[Event(name="ioError", type="flash.events.IOErrorEvent")]
 [Event(name="complete", type="flash.events.Event")]
+[Event(name="ioError", type="flash.events.IOErrorEvent")]
+[Event(name="securityError", type="flash.events.SecurityErrorEvent")]
 public class BitmapDataLoader extends LoaderBase {
     public function BitmapDataLoader(url:String) {
         super(url);

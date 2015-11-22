@@ -34,7 +34,7 @@ public class Maps {
         return result;
     }
 
-    public static function mergeDictinary(a:Dictionary, b:Dictionary):Dictionary {
+    public static function mergeDictionary(a:Dictionary, b:Dictionary):Dictionary {
         const result:Dictionary = new Dictionary();
         mergeImpl(a, b, result);
         return result;
@@ -51,7 +51,7 @@ public class Maps {
     }
 
     public static function firstKey(hash:Object):String {
-        for (var key:String in hash) {
+        for (var key:* in hash) {
             return key;
         }
         return null;

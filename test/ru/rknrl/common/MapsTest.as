@@ -221,7 +221,7 @@ public class MapsTest {
         b["e"] = 20;
         b["f"] = 30;
 
-        const merge:Dictionary = Maps.mergeDictinary(a, b);
+        const merge:Dictionary = Maps.mergeDictionary(a, b);
         assertEquals(6, Maps.size(merge));
         assertEquals(1, merge[key1]);
         assertEquals(2, merge["b"]);
@@ -243,7 +243,7 @@ public class MapsTest {
         b["e"] = 20;
         b["f"] = 30;
 
-        Maps.mergeDictinary(a, b);
+        Maps.mergeDictionary(a, b);
     }
 }
 }

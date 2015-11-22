@@ -23,7 +23,7 @@ public class Maps {
     }
 
     private static function copyImpl(hash:Object, result:Object):void {
-        for (var key:String in hash) {
+        for (var key:* in hash) {
             result[key] = hash[key];
         }
     }

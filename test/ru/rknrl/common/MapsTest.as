@@ -165,15 +165,18 @@ public class MapsTest {
 
     [Test]
     public function copyDictionary():void {
+        const key1: KeyObject = new KeyObject();
+        const key2: KeyObject = new KeyObject();
+
         const dict:Dictionary = new Dictionary();
-        dict["a"] = 1;
-        dict["b"] = 2;
+        dict[key1] = 1;
+        dict[key2] = 2;
         dict["c"] = 3;
 
         const clone:Dictionary = Maps.copyDictionary(dict);
         assertEquals(3, Maps.size(clone));
-        assertEquals(1, clone["a"]);
-        assertEquals(2, clone["b"]);
+        assertEquals(1, clone[key1]);
+        assertEquals(2, clone[key2]);
         assertEquals(3, clone["c"]);
     }
 
@@ -206,8 +209,8 @@ public class MapsTest {
 
     [Test]
     public function mergeDictionary():void {
-        const key1:TestObject = new TestObject(); // Проверяем, что ключи не кастяца к стрингу
-        const key2:TestObject = new TestObject();
+        const key1:KeyObject = new KeyObject(); // Проверяем, что ключи не кастяца к стрингу
+        const key2:KeyObject = new KeyObject();
 
         const a:Dictionary = new Dictionary();
         a[key1] = 1;
@@ -245,7 +248,7 @@ public class MapsTest {
 }
 }
 
-class TestObject {
+class KeyObject {
     public function toString():String {
         return "toString";
     }

@@ -50,7 +50,7 @@ public class Maps {
         }
     }
 
-    public static function firstKey(hash:Object):String {
+    public static function firstKey(hash:Object):* {
         for (var key:* in hash) {
             return key;
         }

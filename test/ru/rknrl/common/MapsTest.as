@@ -12,6 +12,7 @@ import flash.utils.Dictionary;
 import org.flexunit.asserts.assertEquals;
 import org.flexunit.asserts.assertFalse;
 import org.flexunit.asserts.assertNull;
+import org.flexunit.asserts.assertStrictlyEquals;
 import org.flexunit.asserts.assertTrue;
 
 public class MapsTest {
@@ -121,8 +122,9 @@ public class MapsTest {
     [Test("object first key")]
     public function firstKey1():void {
         assertNull(Maps.firstKey({}));
-        assertEquals(1, Maps.firstKey({1: 10}));
-        assertEquals(1, Maps.firstKey({1: 10, 2: 20}));
+        assertStrictlyEquals(1, Maps.firstKey({1: 10}));
+        assertStrictlyEquals(1, Maps.firstKey({1: 10, 2: 20}));
+        assertStrictlyEquals("a", Maps.firstKey({"a": 10}));
     }
 
     [Test("Dictionart first key")]
@@ -130,9 +132,17 @@ public class MapsTest {
         const dictionary:Dictionary = new Dictionary();
         assertNull(Maps.firstKey(dictionary));
         dictionary[1] = 10;
-        assertEquals(1, Maps.firstKey(dictionary));
+        assertStrictlyEquals(1, Maps.firstKey(dictionary));
         dictionary[2] = 20;
-        assertEquals(1, Maps.firstKey(dictionary));
+        assertStrictlyEquals(1, Maps.firstKey(dictionary));
+    }
+
+    [Test("Dictionart first key")]
+    public function firstKey21():void {
+        const dictionary:Dictionary = new Dictionary();
+        const key:KeyObject = new KeyObject();
+        dictionary[key] = 10;
+        assertStrictlyEquals(key, Maps.firstKey(dictionary));
     }
 
     [Test("array first key")]
@@ -165,8 +175,8 @@ public class MapsTest {
 
     [Test]
     public function copyDictionary():void {
-        const key1: KeyObject = new KeyObject();
-        const key2: KeyObject = new KeyObject();
+        const key1:KeyObject = new KeyObject();
+        const key2:KeyObject = new KeyObject();
 
         const dict:Dictionary = new Dictionary();
         dict[key1] = 1;

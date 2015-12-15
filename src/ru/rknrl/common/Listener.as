@@ -20,6 +20,14 @@ public class Listener {
         dispatcher.addEventListener(type, listener)
     }
 
+    public function addEventListenerOnce(dispatcher:IEventDispatcher, type:String, listener:Function):void {
+        const f:Function = function (e:*):void {
+            removeEventListener(dispatcher, type, f);
+            listener(e);
+        };
+        addEventListener(dispatcher, type, f);
+    }
+
     public function removeEventListener(dispatcher:IEventDispatcher, type:String, listener:Function):void {
         const handlerIndex:int = findHandlerIndex(dispatcher, type, listener);
         if (handlerIndex > -1) handlers.splice(handlerIndex, 1);

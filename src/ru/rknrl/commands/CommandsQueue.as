@@ -21,5 +21,9 @@ public class CommandsQueue {
         currentCommand = null;
         if (commands.length > 0) runNext();
     }
+
+    public function destroy():void {
+        commands.length = 0;
+    }
 }
 }

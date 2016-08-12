@@ -64,6 +64,14 @@ public class Maps {
         return null;
     }
 
+    public static function keys(hash: Object): Array {
+        const arr: Array = [];
+        for (var key:* in hash) {
+            arr.push(key);
+        }
+        return arr;
+    }
+
     public static function size(hash:Object):int {
         var i:int = 0;
         for each(var value:* in hash) {

@@ -10,9 +10,17 @@ package ru.rknrl.common {
 import flash.system.Capabilities;
 
 public class Platform {
+    public static function get isIOS(): Boolean {
+        return Capabilities.os.match(/iphone/i);
+    }
+
+    public static function get isAndroid(): Boolean {
+        return Capabilities.manufacturer.match(/android/i);
+    }
+
     public static function get isMobile():Boolean {
-        if (Capabilities.os.match(/iphone/i)) return true;
-        if (Capabilities.manufacturer.match(/android/i)) return true;
+        if (isIOS) return true;
+        if (isAndroid) return true;
         return false;
     }
 }

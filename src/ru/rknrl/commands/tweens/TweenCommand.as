@@ -17,9 +17,15 @@ public class TweenCommand extends Command {
 
     override public function run():void {
         startTime = getTimer();
-        target.addEventListener(Event.ENTER_FRAME, onEnterFrame);
+
         start();
-        enterFrame(0);
+
+        if (target.stage != null) {
+            target.addEventListener(Event.ENTER_FRAME, onEnterFrame);
+            enterFrame(0);
+        } else {
+            enterFrame(1);
+        }
     }
 
     public function onEnterFrame(event:Event):void {

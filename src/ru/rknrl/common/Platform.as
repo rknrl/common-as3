@@ -23,5 +23,9 @@ public class Platform {
         if (isAndroid) return true;
         return false;
     }
+
+    public static function get isPhone():Boolean {
+        return true;
+    }
 }
 }

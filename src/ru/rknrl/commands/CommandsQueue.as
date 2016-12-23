@@ -23,6 +23,7 @@ public class CommandsQueue {
     }
 
     public function destroy():void {
+        currentCommand = null;
         commands.length = 0;
     }
 }

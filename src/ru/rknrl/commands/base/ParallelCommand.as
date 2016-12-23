@@ -2,21 +2,27 @@ package ru.rknrl.commands.base {
 import flash.events.Event;
 
 import ru.rknrl.commands.Command;
+import ru.rknrl.commands.ICommand;
 
 public class ParallelCommand extends Command {
-    private var commands:Vector.<Command>;
+    private var _commands:Vector.<ICommand>;
+
+    public function get commands():Vector.<ICommand> {
+        return _commands;
+    }
+
     private var completed:int;
 
-    public function ParallelCommand(commands:Vector.<Command>) {
-        this.commands = commands;
+    public function ParallelCommand(commands:Vector.<ICommand>) {
+        this._commands = commands;
     }
 
     override public function run():void {
         start();
-        if (commands.length == 0) {
+        if (_commands.length == 0) {
             complete();
         } else {
-            for each (var command:Command in commands) {
+            for each (var command:Command in _commands) {
                 command.addEventListener(COMPLETE, onComplete);
                 command.run();
             }
@@ -26,7 +32,7 @@ public class ParallelCommand extends Command {
     private function onComplete(event:Event):void {
         event.target.removeEventListener(COMPLETE, onComplete);
         completed++;
-        if (completed == commands.length) {
+        if (completed == _commands.length) {
             complete();
         }
     }

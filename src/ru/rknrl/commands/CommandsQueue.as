@@ -2,10 +2,10 @@ package ru.rknrl.commands {
 import flash.events.Event;
 
 public class CommandsQueue {
-    private const commands:Vector.<Command> = new <Command>[];
-    private var currentCommand:Command;
+    private const commands:Vector.<ICommand> = new <ICommand>[];
+    private var currentCommand:ICommand;
 
-    public function add(command:Command):void {
+    public function add(command:ICommand):void {
         commands.push(command);
         if (!currentCommand) runNext();
     }

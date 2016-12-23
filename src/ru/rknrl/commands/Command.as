@@ -2,7 +2,7 @@ package ru.rknrl.commands {
 import flash.events.Event;
 import flash.events.EventDispatcher;
 
-public class Command extends EventDispatcher {
+public class Command extends EventDispatcher implements ICommand {
     public static const COMPLETE:String = "commandComplete";
 
     public function Command() {

@@ -4,15 +4,18 @@ import flash.events.Event;
 import flash.utils.getTimer;
 
 import ru.rknrl.commands.Command;
+import ru.rknrl.easers.IEaser;
 
 public class TweenCommand extends Command {
     private var startTime:int;
     private var duration:int;
     private var target:DisplayObject;
+    private var easer:IEaser;
 
-    public function TweenCommand(target:DisplayObject, duration:int) {
+    public function TweenCommand(target:DisplayObject, duration:int, easer:IEaser = null) {
         this.target = target;
         this.duration = duration;
+        this.easer = easer;
     }
 
     override public function run():void {
@@ -33,7 +36,8 @@ public class TweenCommand extends Command {
         var progress:Number = (time - startTime) / duration;
         if (progress < 0) progress = 0;
         if (progress > 1) progress = 1;
-        enterFrame(progress);
+        const frameProgress:Number = easer != null ? easer.ease(progress) : progress;
+        enterFrame(frameProgress);
         if (progress == 1) {
             target.removeEventListener(Event.ENTER_FRAME, onEnterFrame);
             complete();

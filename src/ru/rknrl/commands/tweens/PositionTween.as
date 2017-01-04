@@ -2,13 +2,15 @@ package ru.rknrl.commands.tweens {
 import flash.display.DisplayObject;
 import flash.geom.Point;
 
+import ru.rknrl.easers.IEaser;
+
 public class PositionTween extends TweenCommand {
     private var target:DisplayObject;
     private var fromPoint:Point;
     private var toPoint:Point;
 
-    public function PositionTween(target:DisplayObject, fromPoint:Point, toPoint:Point, duration:int) {
-        super(target, duration);
+    public function PositionTween(target:DisplayObject, fromPoint:Point, toPoint:Point, duration:int, easer:IEaser = null) {
+        super(target, duration, easer);
         this.target = target;
         this.fromPoint = fromPoint;
         this.toPoint = toPoint;

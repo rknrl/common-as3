@@ -15,6 +15,11 @@ public class AlphaTween extends TweenCommand {
         this.toAlpha = toAlpha;
     }
 
+    override public function run():void {
+        if (isNaN(fromAlpha)) fromAlpha = target.alpha;
+        super.run();
+    }
+
     override public function enterFrame(progress:Number):void {
         target.alpha = fromAlpha + (toAlpha - fromAlpha) * progress;
     }

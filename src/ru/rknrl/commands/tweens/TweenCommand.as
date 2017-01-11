@@ -28,6 +28,7 @@ public class TweenCommand extends Command {
             enterFrame(0);
         } else {
             enterFrame(1);
+            complete();
         }
     }
 

@@ -19,6 +19,12 @@ public class ScaleTween extends TweenCommand {
         this.toScaleY = toScaleY;
     }
 
+    override public function run():void {
+        if (isNaN(fromScaleX)) fromScaleX = target.scaleX;
+        if (isNaN(fromScaleY)) fromScaleY = target.scaleY;
+        super.run();
+    }
+
     override public function enterFrame(progress:Number):void {
         const x:Number = fromScaleX + (toScaleX - fromScaleX) * progress;
         const y:Number = fromScaleY + (toScaleY - fromScaleY) * progress;

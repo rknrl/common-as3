@@ -6,21 +6,35 @@ import ru.rknrl.easers.IEaser;
 
 public class PositionTween extends TweenCommand {
     private var target:DisplayObject;
-    private var fromPoint:Point;
-    private var toPoint:Point;
+    private var fromX:Number;
+    private var fromY:Number;
+    private var toX:Number;
+    private var toY:Number;
 
-    public function PositionTween(target:DisplayObject, fromPoint:Point, toPoint:Point, duration:int, easer:IEaser = null) {
+    public function PositionTween(target:DisplayObject, fromX:Number, fromY:Number, toX:Number, toY:Number, duration:int, easer:IEaser = null) {
         super(target, duration, easer);
         this.target = target;
-        this.fromPoint = fromPoint;
-        this.toPoint = toPoint;
+        this.fromX = fromX;
+        this.fromY = fromY;
+        this.toX = toX;
+        this.toY = toY;
+    }
+
+    override public function run():void {
+        if (isNaN(fromX)) fromX = target.x;
+        if (isNaN(fromY)) fromY = target.y;
+        super.run();
     }
 
     override public function enterFrame(progress:Number):void {
-        const x:Number = fromPoint.x + (toPoint.x - fromPoint.x) * progress;
-        const y:Number = fromPoint.y + (toPoint.y - fromPoint.y) * progress;
+        const x:Number = fromX + (toX - fromX) * progress;
+        const y:Number = fromY + (toY - fromY) * progress;
         target.x = x;
         target.y = y;
+    }
+
+    public static function fromPoints(target:DisplayObject, fromPoint:Point, toPoint:Point, duration:int, easer:IEaser = null):PositionTween {
+        return new PositionTween(target, fromPoint.x, fromPoint.y, toPoint.x, toPoint.y, duration, easer);
     }
 }
 }

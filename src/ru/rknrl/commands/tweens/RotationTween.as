@@ -15,6 +15,11 @@ public class RotationTween extends TweenCommand {
         this.toRotation = toRotation;
     }
 
+    override public function run():void {
+        if (isNaN(fromRotation)) fromRotation = target.rotation;
+        super.run();
+    }
+
     override public function enterFrame(progress:Number):void {
         target.rotation = fromRotation + (toRotation - fromRotation) * progress;
     }

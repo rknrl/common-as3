@@ -17,6 +17,19 @@ package ru.rknrl.easers {
  * завершения периода, определенного свойством easeOutFraction.
  */
 public class Linear implements IEaser {
+    private static var _instance01:Linear;
+
+    public static function get instance01():Linear {
+        if (!_instance01) _instance01 = new Linear(0, 1);
+        return _instance01;
+    }
+
+    private static var _instance10:Linear;
+
+    public static function get instance10():Linear {
+        if (!_instance10) _instance10 = new Linear(1, 0);
+        return _instance10;
+    }
 
     /**
      *  @param easeInFraction The fraction of the overall duration

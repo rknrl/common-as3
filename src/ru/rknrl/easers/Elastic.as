@@ -11,6 +11,13 @@ package ru.rknrl.easers {
  * Движение происходит по экспоненциально затухающей синусоиде.
  */
 public class Elastic implements IEaser {
+    private static var _instance:Elastic;
+
+    public static function get instance():Elastic {
+        if (!_instance) _instance = new Elastic();
+        return _instance;
+    }
+
     public function ease(fraction:Number):Number {
         return easeOut(fraction, 0, 1, 1);
     }

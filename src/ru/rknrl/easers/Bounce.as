@@ -11,6 +11,12 @@ package ru.rknrl.easers {
  * Отскок
  */
 public class Bounce implements IEaser {
+    private static var _instance:Bounce;
+
+    public static function get instance():Bounce {
+        if (!_instance) _instance = new Bounce();
+        return _instance;
+    }
 
     public function ease(fraction:Number):Number {
         return easeOut(fraction, 0, 1, 1);

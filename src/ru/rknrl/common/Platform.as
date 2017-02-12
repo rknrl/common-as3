@@ -7,6 +7,7 @@
 //      \|__|     \|__|     \/__/     \|__|     \/__/
 
 package ru.rknrl.common {
+import flash.display.Stage;
 import flash.system.Capabilities;
 
 public class Platform {
@@ -21,6 +22,22 @@ public class Platform {
     public static const ROTATED_LEFT:String = "rotatedLeft";
     public static const UPSIDE_DOWN:String = "upsideDown";
     public static const UNKNOWN:String = "unknown";
+
+    public static function realWidth(stage:Stage):uint {
+        return Math.max(stage.fullScreenWidth, stage.fullScreenHeight);
+    }
+
+    public static function realHeight(stage:Stage):uint {
+        return Math.min(stage.fullScreenWidth, stage.fullScreenHeight);
+    }
+
+    public static function isPortrait(stage:Stage):Boolean {
+        return stage.fullScreenWidth < stage.fullScreenHeight;
+    }
+
+    public static function isLandscape(stage:Stage):Boolean {
+        return !isPortrait(stage);
+    }
 
     public static function get isIOS():Boolean {
         return Capabilities.os.match(/iphone/i);

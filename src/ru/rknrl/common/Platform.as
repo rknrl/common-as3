@@ -23,14 +23,6 @@ public class Platform {
     public static const UPSIDE_DOWN:String = "upsideDown";
     public static const UNKNOWN:String = "unknown";
 
-    public static function realWidth(stage:Stage):uint {
-        return Math.max(stage.fullScreenWidth, stage.fullScreenHeight);
-    }
-
-    public static function realHeight(stage:Stage):uint {
-        return Math.min(stage.fullScreenWidth, stage.fullScreenHeight);
-    }
-
     public static function isPortrait(stage:Stage):Boolean {
         return stage.fullScreenWidth < stage.fullScreenHeight;
     }
@@ -40,17 +32,15 @@ public class Platform {
     }
 
     public static function get isIOS():Boolean {
-        return Capabilities.os.match(/iphone/i);
+        return Capabilities.version.substr(0,3) == "IOS";
     }
 
     public static function get isAndroid():Boolean {
-        return Capabilities.manufacturer.match(/android/i);
+        return Capabilities.version.substr(0,3) == "AND";
     }
 
     public static function get isMobile():Boolean {
-        if (isIOS) return true;
-        if (isAndroid) return true;
-        return false;
+        return isIOS || isAndroid;
     }
 }
 }

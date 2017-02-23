@@ -7,10 +7,13 @@
 //      \|__|     \|__|     \/__/     \|__|     \/__/
 
 package ru.rknrl.log {
+import flash.display.LoaderInfo;
+import flash.events.ErrorEvent;
 import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.events.IOErrorEvent;
 import flash.events.SecurityErrorEvent;
+import flash.events.UncaughtErrorEvent;
 import flash.net.URLLoader;
 import flash.net.URLRequest;
 import flash.net.URLRequestMethod;
@@ -49,6 +52,28 @@ public class Log extends EventDispatcher {
 
     public static function removeEventListener(type:String, listener:Function):void {
         log.removeEventListener(type, listener);
+    }
+
+    public static function addErrorCatcher(loaderInfo:LoaderInfo):void {
+        loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onUncaughtErrorEvent);
+    }
+
+    public static function removeErrorCatcher(loaderInfo:LoaderInfo):void {
+        loaderInfo.uncaughtErrorEvents.removeEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onUncaughtErrorEvent);
+    }
+
+    public static function onUncaughtErrorEvent(event:UncaughtErrorEvent):void {
+        error("Error", getErrorText(event.error));
+    }
+
+    public static function getErrorText(e:*):String {
+        if (e is Error) {
+            return (e as Error).getStackTrace();
+        } else if (e is ErrorEvent) {
+            return (e as ErrorEvent).text;
+        } else {
+            return "Unknown error " + e;
+        }
     }
 
     //

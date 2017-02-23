@@ -24,6 +24,9 @@ public class Log extends EventDispatcher {
     public static var url:String = null;
     public static var dispatch:Boolean;
 
+    public static var app:String = "";
+    public static var secret:String = "";
+
     public static function info(text:String):void {
         log.info(text);
     }
@@ -67,8 +70,16 @@ public class Log extends EventDispatcher {
                 "sendDate=" + new Date().toString() + "\n" +
                 "os=" + Capabilities.os + "\n" +
                 "playerType=" + Capabilities.playerType + "\n" +
-                "ver=" + Capabilities.version + "\n" +
+                "manufacturer=" + Capabilities.manufacturer + "\n" +
+                "language=" + Capabilities.language + "\n" +
+                "screenResolutionX=" + Capabilities.screenResolutionX + "\n" +
+                "screenResolutionY=" + Capabilities.screenResolutionY + "\n" +
+                "screenDPI=" + Capabilities.screenDPI + "\n" +
+                "pixelAspectRatio=" + Capabilities.pixelAspectRatio + "\n" +
+                "version=" + Capabilities.version + "\n" +
                 "debug=" + Capabilities.isDebugger + "\n" +
+                "touchscreenType=" + Capabilities.touchscreenType + "\n" +
+
                 "freemem=" + System.freeMemory + "\n" +
                 "totalmem=" + System.totalMemory + "\n";
     }
@@ -113,7 +124,7 @@ public class Log extends EventDispatcher {
 
         if (!errorSended) {
             if (url != null) {
-                send(url);
+                send(url, stackTrace);
                 errorSended = true;
             } else {
                 warn("want send log, but hasn't url");
@@ -125,7 +136,7 @@ public class Log extends EventDispatcher {
         list.length = 0;
     }
 
-    public function send(url:String):void {
+    public function send(url:String, stackTrace:String):void {
         add("send log to " + url);
         const urlLoader:URLLoader = new URLLoader();
         urlLoader.addEventListener(Event.COMPLETE, onSendComplete);
@@ -134,9 +145,24 @@ public class Log extends EventDispatcher {
 
         const urlRequest:URLRequest = new URLRequest(url);
         urlRequest.method = URLRequestMethod.POST;
-        urlRequest.data = header() + list.join("\n");
+        urlRequest.data = "secret=" + secret + "\n" +
+                "app=" + app + "\n" +
+                "bug=" + getErrorName(stackTrace) + "\n" +
+                header() +
+                list.join("\n");
 
         urlLoader.load(urlRequest)
+    }
+
+    private static function getErrorName(stacktrace:String):String {
+        if (stacktrace == null || stacktrace == "") return "";
+        const i1:int = stacktrace.indexOf("\n");
+        if (i1 == -1) {
+            return "";
+        } else {
+            const i2:int = stacktrace.indexOf("\n", i1 + 1);
+            return i2 == -1 ? stacktrace.substring(0, i1) : stacktrace.substring(0, i2);
+        }
     }
 
     private function onSendComplete(event:Event):void {
@@ -145,7 +171,7 @@ public class Log extends EventDispatcher {
     }
 
     private function onSendError(event:Event):void {
-        add('log isn\'t sent "' + event.toString() + '"');
+        add('log not sent "' + event.toString() + '"');
         removeListeners(event);
     }
 

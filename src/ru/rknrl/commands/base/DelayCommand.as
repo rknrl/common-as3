@@ -16,9 +16,9 @@ public class DelayCommand extends Command {
     }
 
     override public function run():void {
-        start();
-
         startTime = getTimer();
+
+        start();
 
         if (target.stage != null) {
             target.addEventListener(Event.ENTER_FRAME, onEnterFrame);

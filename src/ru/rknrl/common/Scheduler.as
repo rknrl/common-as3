@@ -22,8 +22,8 @@ public class Scheduler {
 
     public function destroy():void {
         enterFrameDispatcher.removeEventListener(Event.ENTER_FRAME, onEnterFrame);
-        timeouts = new Dictionary();
         enterFrameDispatcher = null;
+        timeouts = new Dictionary();
     }
 
     public function setTimeout(f:Function, delay:int):uint {
@@ -66,10 +66,10 @@ public class Scheduler {
             if (currentTime >= timeout.endTime) {
                 timeout.f();
 
-                if (!timeout.isInterval) {
-                    toDelete.push(id);
-                } else {
+                if (timeout.isInterval) {
                     timeout.endTime = currentTime + timeout.delay;
+                } else {
+                    toDelete.push(id);
                 }
             }
         }

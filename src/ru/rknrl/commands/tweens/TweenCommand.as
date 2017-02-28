@@ -7,10 +7,10 @@ import ru.rknrl.commands.Command;
 import ru.rknrl.easers.IEaser;
 
 public class TweenCommand extends Command {
-    private var startTime:int;
-    private var duration:int;
     private var target:DisplayObject;
+    private var duration:int;
     private var easer:IEaser;
+    private var startTime:int;
 
     public function TweenCommand(target:DisplayObject, duration:int, easer:IEaser = null) {
         this.target = target;

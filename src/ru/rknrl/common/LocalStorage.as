@@ -23,7 +23,7 @@ public class LocalStorage {
     }
 
     public function get isAvailable():Boolean {
-        return sharedObject;
+        return sharedObject != null;
     }
 
     public function get data():Object {

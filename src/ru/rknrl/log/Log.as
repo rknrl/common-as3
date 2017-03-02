@@ -141,19 +141,15 @@ public class Log extends EventDispatcher {
         add('[WARNING] ' + text);
     }
 
-    private var errorSended:Boolean;
 
     public function error(name:String, stackTrace:String):void {
         add('[ERROR] "' + name + '"');
         add('stackTrace "' + stackTrace + '"');
 
-        if (!errorSended) {
-            if (url != null) {
-                send(url, stackTrace);
-                errorSended = true;
-            } else {
-                warn("want send log, but hasn't url");
-            }
+        if (url != null) {
+            send(url, stackTrace);
+        } else {
+            warn("want send log, but hasn't url");
         }
     }
 

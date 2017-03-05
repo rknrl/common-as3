@@ -17,7 +17,7 @@ public class CommandsQueue {
     }
 
     private function onComplete(event:Event):void {
-        currentCommand.removeEventListener(Command.COMPLETE, onComplete);
+        ICommand(event.target).removeEventListener(Command.COMPLETE, onComplete);
         currentCommand = null;
         if (commands.length > 0) runNext();
     }
